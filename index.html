@@ -14,9 +14,25 @@ body {
     overflow: hidden;
     position: relative;
 }
+
 h1 { color: #e91e63; font-size: 36px; }
 p { font-size: 20px; }
-img { max-width: 300px; border-radius: 20px; margin: 20px 0; display: none; }
+
+/* 居中显示的惊喜照片容器 */
+#photoContainer {
+    display: none;          /* 初始隐藏 */
+    position: fixed;        /* 固定在屏幕中央 */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;          /* 确保在气泡和彩带上方 */
+}
+#surprise {
+    max-width: 300px;
+    border-radius: 20px;
+    display: block;
+}
+
 .btn {
     padding: 15px 30px; font-size: 18px; margin: 10px;
     border: none; border-radius: 10px; cursor: pointer; transition: transform 0.2s;
@@ -70,7 +86,10 @@ img { max-width: 300px; border-radius: 20px; margin: 20px 0; display: none; }
 <h1>Mr Chun💖</h1>
 <p>Would you like me to spend your birthday with you?</p>
 
-<img id="surprise" src="surprise-photo.jpg" alt="惊喜照片">
+<!-- 居中照片容器 -->
+<div id="photoContainer">
+    <img id="surprise" src="surprise-photo.jpg" alt="惊喜照片">
+</div>
 
 <br>
 <button class="btn yes" onclick="yesClick()">Yes🥰</button>
@@ -84,7 +103,7 @@ img { max-width: 300px; border-radius: 20px; margin: 20px 0; display: none; }
 // Yes点击事件
 function yesClick() {
     alert("Yay! I get to be with you on your birthday lar 💖 But just so you know, I expect unlimited hugs and kisses oh 😘😂 See you tomorrow!");
-    document.getElementById("surprise").style.display = "block";
+    document.getElementById("photoContainer").style.display = "flex"; // 显示并居中
     launchHearts(30);
     launchConfetti(50);
 }
