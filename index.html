@@ -18,21 +18,12 @@ body {
 h1 { color: #e91e63; font-size: 36px; }
 p { font-size: 20px; }
 
-/* 居中显示的惊喜照片容器 */
-#photoContainer {
-    display: none;           /* 初始隐藏 */
-    position: fixed;         /* 固定在屏幕中央 */
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    justify-content: center; /* Flex 水平居中 */
-    align-items: center;     /* Flex 垂直居中 */
-    z-index: 1000;           /* 确保在气泡和彩带上方 */
-    cursor: pointer;         /* 提示可点击关闭 */
-}
-#photoContainer img {
+/* 照片在页面流中居中显示 */
+#surprise {
     max-width: 300px;
     border-radius: 20px;
+    display: none;      /* 初始隐藏 */
+    margin: 20px auto;  /* 上下20px，左右居中 */
 }
 
 .btn {
@@ -90,10 +81,8 @@ p { font-size: 20px; }
 <h1>Mr Chun💖</h1>
 <p>Would you like me to spend your birthday with you?</p>
 
-<!-- 居中照片容器 -->
-<div id="photoContainer">
-    <img id="surprise" src="surprise-photo.jpg" alt="惊喜照片">
-</div>
+<!-- 照片在文字下方 -->
+<img id="surprise" src="surprise-photo.jpg" alt="惊喜照片">
 
 <br>
 <button class="btn yes" onclick="yesClick()">Yes🥰</button>
@@ -106,16 +95,11 @@ p { font-size: 20px; }
 <script>
 // Yes点击事件
 function yesClick() {
-    alert("Yay! 我可以和你一起过生日啦💖");
-    document.getElementById("photoContainer").style.display = "flex"; // 显示并居中
+    alert("Yay! I get to be with you on your birthday lar 💖 But just so you know, I expect unlimited hugs and kisses oh 😘😂 See you tomorrow!");
+    document.getElementById("surprise").style.display = "block"; // 显示照片
     launchHearts(30);
     launchConfetti(50);
 }
-
-// 点击照片关闭
-document.getElementById("photoContainer").addEventListener("click", () => {
-    document.getElementById("photoContainer").style.display = "none";
-});
 
 // No按钮“淘汰”效果
 let noBtn = document.getElementById("noBtn");
