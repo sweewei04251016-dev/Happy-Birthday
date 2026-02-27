@@ -18,12 +18,11 @@ body {
 h1 { color: #e91e63; font-size: 36px; }
 p { font-size: 20px; }
 
-/* 照片在页面流中居中显示 */
 #surprise {
     max-width: 300px;
     border-radius: 20px;
-    display: none;      /* 初始隐藏 */
-    margin: 20px auto;  /* 上下20px，左右居中 */
+    display: none;
+    margin: 20px auto;
 }
 
 .btn {
@@ -81,14 +80,13 @@ p { font-size: 20px; }
 <h1>Mr Chun💖</h1>
 <p>Would you like me to spend your birthday with you?</p>
 
-<!-- 照片在文字下方 -->
 <img id="surprise" src="surprise-photo.jpg" alt="惊喜照片">
 
 <br>
 <button class="btn yes" onclick="yesClick()">Yes🥰</button>
 <button class="btn no" id="noBtn">No😭</button>
 
-<audio autoplay loop>
+<audio id="bgAudio" loop>
     <source src="bg-music.mp3" type="audio/mpeg">
 </audio>
 
@@ -96,9 +94,13 @@ p { font-size: 20px; }
 // Yes点击事件
 function yesClick() {
     alert("Yay! I get to be with you on your birthday lar 💖 But just so you know, I expect unlimited hugs and kisses oh 😘😂 See you tomorrow!");
+    
     document.getElementById("surprise").style.display = "block"; // 显示照片
     launchHearts(30);
     launchConfetti(50);
+
+    const audio = document.getElementById("bgAudio");
+    audio.play();
 }
 
 // No按钮“淘汰”效果
