@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>生日邀请函 🎉</title>
+<style>
+body {
+    font-family: "Arial", sans-serif;
+    text-align: center;
+    background: linear-gradient(135deg, #ffe6f0, #ffd9e8);
+    color: #333;
+    padding: 50px;
+    overflow: hidden;
+    position: relative;
+}
+h1 { color: #e91e63; font-size: 36px; }
+p { font-size: 20px; }
+img { max-width: 300px; border-radius: 20px; margin: 20px 0; display: none; }
+.btn {
+    padding: 15px 30px; font-size: 18px; margin: 10px;
+    border: none; border-radius: 10px; cursor: pointer; transition: transform 0.2s;
+}
+.yes { background-color: #4caf50; color: white; }
+.no { background-color: #f44336; color: white; position: relative; }
+
+.bubble {
+    position: absolute;
+    background: rgba(255,255,255,0.7);
+    border-radius: 50%;
+    animation: rise 6s linear infinite;
+    pointer-events: none;
+}
+@keyframes rise {
+    0% { transform: translateY(0) scale(0.5); opacity: 0.7; }
+    100% { transform: translateY(-1000px) scale(1); opacity: 0; }
+}
+.heart {
+    position: absolute;
+    width: 30px; height: 30px;
+    background: red; transform: rotate(-45deg);
+    animation: fly 2s ease-out forwards;
+}
+.heart::before, .heart::after {
+    content: "";
+    position: absolute; width: 30px; height: 30px;
+    background: red; border-radius: 50%;
+}
+.heart::before { top: -15px; left: 0; }
+.heart::after { top: 0; left: 15px; }
+@keyframes fly {
+    0% { transform: translate(0,0) rotate(-45deg); opacity:1; }
+    100% { transform: translate(var(--x), var(--y)) rotate(-45deg); opacity:0; }
+}
+.confetti {
+    position: absolute;
+    width: 10px; height: 10px;
+    background: var(--color);
+    top: -10px;
+    animation: fall 3s linear forwards;
+}
+@keyframes fall {
+    0% { top: -10px; opacity:1; }
+    100% { top: 100vh; opacity:0; transform: rotate(360deg); }
+}
+</style>
+</head>
+<body>
+
+<h1>亲爱的宝贝 💖</h1>
+<p>我想问你…你愿意和我一起度过你的生日吗？</p>
+
+<img id="surprise" src="surprise-photo.jpg" alt="惊喜照片">
+
+<br>
+<button class="btn yes" onclick="yesClick()">当然愿意！🥰</button>
+<button class="btn no" id="noBtn">不行…😭</button>
+
+<audio autoplay loop>
+    <source src="bg-music.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+// Yes点击事件
+function yesClick() {
+    alert("太棒了！我会让你的生日超级特别！🎂💖");
+    document.getElementById("surprise").style.display = "block";
+    launchHearts(30);
+    launchConfetti(50);
+}
+
+// No按钮“淘汰”效果
+let noBtn = document.getElementById("noBtn");
+noBtn.addEventListener("mouseenter", () => {
+    noBtn.style.transform = `translate(${Math.random()*300-150}px, ${Math.random()*200-100}px)`;
+});
+
+// 气泡动画
+for(let i=0; i<30; i++){
+    let bubble = document.createElement("div");
+    bubble.classList.add("bubble");
+    bubble.style.width = bubble.style.height = Math.random()*40 + 20 + "px";
+    bubble.style.left = Math.random()*window.innerWidth + "px";
+    bubble.style.animationDuration = 4 + Math.random()*4 + "s";
+    document.body.appendChild(bubble);
+}
+
+// 心形飞出
+function launchHearts(count){
+    for(let i=0; i<count; i++){
+        let heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.style.left = (window.innerWidth/2 - 15) + "px";
+        heart.style.top = (window.innerHeight/2 - 15) + "px";
+        heart.style.setProperty('--x', (Math.random()*600-300) + "px");
+        heart.style.setProperty('--y', -(Math.random()*600+200) + "px");
+        document.body.appendChild(heart);
+        setTimeout(()=> heart.remove(), 2000);
+    }
+}
+
+// 彩带飘落
+function launchConfetti(count){
+    const colors = ["#f44336","#e91e63","#ffeb3b","#4caf50","#2196f3"];
+    for(let i=0;i<count;i++){
+        let conf = document.createElement("div");
+        conf.classList.add("confetti");
+        conf.style.left = Math.random()*window.innerWidth + "px";
+        conf.style.setProperty("--color", colors[Math.floor(Math.random()*colors.length)]);
+        conf.style.animationDuration = 2 + Math.random()*2 + "s";
+        document.body.appendChild(conf);
+        setTimeout(()=> conf.remove(), 4000);
+    }
+}
+</script>
+
+</body>
+</html>
